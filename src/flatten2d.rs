@@ -1,6 +1,6 @@
-use crate::deep_learning::ai_trait::*;
-use crate::deep_learning::vector::*;
-use crate::deep_learning::matrix::*;
+use crate::ai_trait::*;
+use crate::vector::*;
+use crate::matrix::*;
 
 pub struct Flatten2D<const N: usize, const M: usize, const L: usize>
 { }

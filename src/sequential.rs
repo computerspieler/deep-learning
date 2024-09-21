@@ -8,6 +8,7 @@ macro_rules! sequential_forward {
 		_x
 	}};
 }
+pub use sequential_forward;
 
 #[macro_export]
 macro_rules! sequential_train {
@@ -27,11 +28,4 @@ macro_rules! sequential_train {
 		(($layer).learn_and_propagate(&dx, &_x, &_fx, $learning_rate), score)
 	}};
 }
-/*
-fn learn_and_propagate(&mut self,
-		backward_input: &Self::Output,
-		forward_input: &Self::Input,
-		forward_output: &Self::Output,
-		learning_rate: Self::LearningCoeff
-	) 
-*/
+pub use sequential_train;

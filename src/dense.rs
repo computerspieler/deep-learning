@@ -1,6 +1,6 @@
-use crate::deep_learning::vector::*;
-use crate::deep_learning::matrix::*;
-use crate::deep_learning::ai_trait::*;
+use crate::vector::*;
+use crate::matrix::*;
+use crate::ai_trait::*;
 
 pub struct Dense<const INPUT_DIM: usize, const OUTPUT_DIM: usize> {
 	weights: Matrix<INPUT_DIM, OUTPUT_DIM>,
@@ -15,6 +15,13 @@ Dense<INPUT_DIM, OUTPUT_DIM>
 			weights: Matrix::rand(jitterness),
 			bias: Vector::rand(jitterness)
 		}
+	}
+
+	pub fn weights(&self) -> Matrix<INPUT_DIM, OUTPUT_DIM> {
+		self.weights
+	}
+	pub fn bias(&self) -> Vector<OUTPUT_DIM> {
+		self.bias
 	}
 }
 
@@ -46,6 +53,5 @@ AIModule for Dense<INPUT_DIM, OUTPUT_DIM> {
 			self.weights[i] -= *forward_input * x;
 			self.bias[i] -= x;
 		}
-
 	}
 }

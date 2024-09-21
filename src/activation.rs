@@ -1,16 +1,16 @@
-use crate::deep_learning::ai_trait::*;
-use crate::deep_learning::vector::*;
-use crate::deep_learning::matrix::*;
+use crate::ai_trait::*;
+use crate::vector::*;
+use crate::matrix::*;
 
 pub struct ActivationLayer1D<const N: usize> {
 	f: fn(f32) -> f32,
-	df: fn(f32) -> f32
+	df: fn(f32, f32) -> f32
 }
 
 impl<const N: usize>
 ActivationLayer1D<N>
 {
-	pub fn new(f: fn(f32) -> f32, df: fn(f32) -> f32) -> Self
+	pub fn new(f: fn(f32) -> f32, df: fn(f32, f32) -> f32) -> Self
 	{ Self{f: f, df: df} }
 }
 
@@ -32,13 +32,14 @@ AIModule for ActivationLayer1D<N>
 
 	fn backpropagate(&self,
 		backward_input: &Self::Output,
-		_forward_input: &Self::Input,
+		forward_input: &Self::Input,
 		forward_output: &Self::Output
 	) -> Self::Input
 	{
 		let mut input = Vector::new(0.);
 		for i in 0 .. N {
-			input[i] = (self.df)(forward_output[i]) * backward_input[i];
+			input[i] = (self.df)(forward_input[i], forward_output[i])
+                * backward_input[i];
 		}
 		return input;
 	}
@@ -55,13 +56,13 @@ AIModule for ActivationLayer1D<N>
 
 pub struct ActivationLayer2D<const N: usize, const M: usize, const L: usize> {
 	f: fn(f32) -> f32,
-	df: fn(f32) -> f32
+	df: fn(f32, f32) -> f32
 }
 
 impl<const N: usize, const M: usize, const L: usize>
 ActivationLayer2D<N, M, L>
 {
-	pub fn new(f: fn(f32) -> f32, df: fn(f32) -> f32) -> Self
+	pub fn new(f: fn(f32) -> f32, df: fn(f32, f32) -> f32) -> Self
 	{ Self{f: f, df: df} }
 }
 
@@ -87,7 +88,7 @@ AIModule for ActivationLayer2D<N, M, L>
 
 	fn backpropagate(&self,
 		backward_input: &Self::Output,
-		_forward_input: &Self::Input,
+		forward_input: &Self::Input,
 		forward_output: &Self::Output
 	) -> Self::Input
 	{
@@ -95,7 +96,8 @@ AIModule for ActivationLayer2D<N, M, L>
 		for l in 0 .. L {
 			for j in 0 .. M {
 				for i in 0 .. N {
-					output[l][j][i] = (self.df)(forward_output[l][j][i]) * backward_input[l][j][i];
+					output[l][j][i] = (self.df)(forward_input[l][j][i], forward_output[l][j][i])
+                        * backward_input[l][j][i];
 				}
 			}
 		}

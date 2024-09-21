@@ -1,5 +1,5 @@
 use std::ops;
-use crate::deep_learning::vector::*;
+use crate::vector::*;
 
 #[derive(Debug)]
 pub struct Matrix<const N: usize, const M: usize>([Vector<N>; M]);

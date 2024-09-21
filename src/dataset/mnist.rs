@@ -2,8 +2,8 @@ use std::io::Error;
 use std::fs;
 use std::iter::Iterator;
 use std::path::Path;
-use crate::deep_learning::vector::*;
-use crate::deep_learning::matrix::*;
+use crate::vector::*;
+use crate::matrix::*;
 
 #[allow(unused_macros)]
 macro_rules! read2_little {

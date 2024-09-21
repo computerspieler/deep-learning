@@ -1,5 +1,5 @@
-use crate::deep_learning::matrix::*;
-use crate::deep_learning::ai_trait::*;
+use crate::matrix::*;
+use crate::ai_trait::*;
 
 pub struct Conv2D
 <const IN_N: usize, const IN_M: usize, const IN_DEPTH: usize,

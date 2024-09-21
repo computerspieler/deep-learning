@@ -1,5 +1,5 @@
-use crate::deep_learning::ai_trait::*;
-use crate::deep_learning::matrix::*;
+use crate::ai_trait::*;
+use crate::matrix::*;
 
 pub enum PoolingLayer2D<const N: usize, const M: usize, const L: usize, const POOL_SIZE: usize> {
 	MaxPooling,
