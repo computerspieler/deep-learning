@@ -22,8 +22,8 @@ macro_rules! sequential_train {
 		let _x = $input;
 		let _fx = ($layer).forward(&_x);
 		let diff = _fx - ($expected);
-		let score = _fx.dot(&$expected);
-		let dx = diff * (2. / (_fx.len() as f32));
+		let score = _fx.len2() / (_fx.dim() as f32);
+		let dx = diff * (2. / (_fx.dim() as f32));
 		(($layer).learn_and_propagate(&dx, &_x, &_fx, $learning_rate), score)
 	}};
 }

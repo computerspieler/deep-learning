@@ -20,7 +20,7 @@ impl<const N: usize> Vector<N> {
 		return Vector(output);
 	}
 
-	pub fn len(&self) -> usize
+	pub fn dim(&self) -> usize
 	{ N }
 	
 	pub fn dot(&self, rhs: &Vector<N>) -> f32 {
@@ -31,6 +31,10 @@ impl<const N: usize> Vector<N> {
 		}
 		
 		return output;
+	}
+
+	pub fn len2(&self) -> f32 {
+		self.dot(&self)
 	}
 
 	pub fn reverse(&mut self) {
@@ -121,6 +125,20 @@ impl<const N: usize> ops::Mul<f32> for Vector<N> {
 		let mut output = self.clone();
 		for i in 0 .. N {
 			output.0[i] *= rhs;
+		}
+
+		output
+	}
+}
+
+impl<const N: usize> ops::Mul<Vector<N>> for Vector<N> {
+	type Output = Vector<N>;
+
+	fn mul(self, rhs: Vector<N>) -> Self
+	{
+		let mut output = self.clone();
+		for i in 0 .. N {
+			output.0[i] *= rhs[i];
 		}
 
 		output
